@@ -50,15 +50,17 @@
   </main>
 
   
-  <button id="themeToggle" class="theme-fab theme-fab--dual" type="button" aria-label="다크/라이트 전환">
-    <span class="seg seg--light" aria-hidden="true">
-      <span class="seg-icon">☀️</span>
-    </span>
-    <span class="seg seg--dark" aria-hidden="true">
-      <span class="seg-icon">🌙</span>
-    </span>
+  <div id="themeFab" class="theme-fab theme-fab--dual" aria-label="테마 선택">
+  <button id="themeLight" class="seg seg--light" type="button" aria-label="라이트 모드">
+    <span class="seg-icon" aria-hidden="true">☀️</span>
   </button>
 
+  <button id="themeDark" class="seg seg--dark" type="button" aria-label="다크 모드">
+    <span class="seg-icon" aria-hidden="true">🌙</span>
+  </button>
+  </div>
+
+  <script src="/assets/js/theme-toggle.js"></script>
 
   <script src="/assets/js/theme-toggle.js"></script>
 
