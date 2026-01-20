@@ -1,14 +1,10 @@
 (() => {
-  const STORAGE_KEY = "vivon_theme"; // "dark" | "light" | null
+  const STORAGE_KEY = "vivon_theme"; // "dark" | "light"
   const root = document.documentElement;
 
   const fab = () => document.getElementById("themeFab");
   const btnLight = () => document.getElementById("themeLight");
   const btnDark  = () => document.getElementById("themeDark");
-
-  function systemPrefersDark() {
-    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-  }
 
   function getSavedTheme() {
     const v = localStorage.getItem(STORAGE_KEY);
@@ -16,65 +12,39 @@
   }
 
   function setSavedTheme(v) {
-    if (v === "dark" || v === "light") localStorage.setItem(STORAGE_KEY, v);
-    else localStorage.removeItem(STORAGE_KEY);
+    localStorage.setItem(STORAGE_KEY, v);
   }
 
   function applyTheme(theme) {
-    // theme: "dark" | "light" | null (null = system)
-    if (theme === "dark") root.setAttribute("data-theme", "dark");
-    else if (theme === "light") root.setAttribute("data-theme", "light");
-    else root.removeAttribute("data-theme");
+    // theme must be "dark" or "light"
+    root.setAttribute("data-theme", theme);
   }
 
-  function effectiveTheme() {
-    // 실제 화면에 적용될 테마 계산 (저장값 우선, 없으면 시스템)
-    const saved = getSavedTheme();
-    if (saved === "dark" || saved === "light") return saved;
-    return systemPrefersDark() ? "dark" : "light";
-  }
-
-  function syncButtonUI() {
+  function syncButtonUI(theme) {
     const f = fab();
     if (!f) return;
-
-    const eff = effectiveTheme();
-    f.setAttribute("data-active", eff); // ✅ CSS가 이 값으로 하이라이트 표시
-
-    // 접근성/툴팁
-    f.title = eff === "dark" ? "다크 모드 (현재)" : "라이트 모드 (현재)";
+    f.setAttribute("data-active", theme); // CSS 하이라이트는 이 값으로만 결정
   }
 
-  function setThemeAndRemember(theme) {
-    // theme: "dark" | "light"
+  function setTheme(theme) {
     setSavedTheme(theme);
     applyTheme(theme);
-    syncButtonUI();
-  }
-
-  function bindSystemListener() {
-    if (!window.matchMedia) return;
-    const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    const handler = () => {
-      // 저장값 없을 때만 시스템 변경 반영
-      if (getSavedTheme() === null) {
-        applyTheme(null);
-        syncButtonUI();
-      }
-    };
-    if (mq.addEventListener) mq.addEventListener("change", handler);
-    else mq.addListener(handler);
+    syncButtonUI(theme);
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    // init: 저장값이 있으면 적용, 없으면 시스템
+    // ✅ 첫 방문 기본값을 무조건 다크로
     const saved = getSavedTheme();
-    applyTheme(saved);
-    syncButtonUI();
+    const initial = saved ?? "dark";
 
-    if (btnLight()) btnLight().addEventListener("click", () => setThemeAndRemember("light"));
-    if (btnDark())  btnDark().addEventListener("click",  () => setThemeAndRemember("dark"));
+    // 저장값이 없었다면, 여기서 "dark"를 저장해버림 (시크릿도 동일)
+    if (!saved) setSavedTheme("dark");
 
-    bindSystemListener();
+    applyTheme(initial);
+    syncButtonUI(initial);
+
+    // 버튼 동작 유지: 좌=라이트, 우=다크
+    if (btnLight()) btnLight().addEventListener("click", () => setTheme("light"));
+    if (btnDark())  btnDark().addEventListener("click",  () => setTheme("dark"));
   });
 })();
