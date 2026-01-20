@@ -24,19 +24,18 @@
   }
 
   function updateButton(theme) {
-    const b = btn();
-    if (!b) return;
+  const b = btn();
+  if (!b) return;
 
-    // 현재 적용 테마 계산
-    const effectiveTheme =
-      theme === "dark" || theme === "light"
-        ? theme
-        : (systemPrefersDark() ? "dark" : "light");
+  const effectiveTheme =
+    theme === "dark" || theme === "light"
+      ? theme
+      : (systemPrefersDark() ? "dark" : "light");
 
-    // 아이콘/텍스트: 너무 과하지 않게
-    b.dataset.mode = effectiveTheme; // css에서 쓰려고 저장
-    b.title = effectiveTheme === "dark" ? "라이트 모드" : "다크 모드";
+  // 접근성(툴팁)만 업데이트
+  b.title = effectiveTheme === "dark" ? "라이트 모드로 전환" : "다크 모드로 전환";
   }
+
 
   function getSavedTheme() {
     const v = localStorage.getItem(STORAGE_KEY);
