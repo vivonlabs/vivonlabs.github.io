@@ -265,36 +265,21 @@ li { margin: 6px 0; }
   line-height: 1;
 }
 
-/* ✅ 현재 모드 하이라이트: data-theme 우선 */
-:root[data-theme="dark"] .theme-fab--dual .seg--dark {
+/* ✅ 하이라이트는 JS가 찍어주는 data-active로만 결정 */
+#themeFab[data-active="dark"] .seg--dark {
   background: rgba(15, 26, 46, .85);
   color: #ffffff;
   box-shadow: 0 0 0 1px rgba(255,255,255,.08) inset;
 }
 
-:root[data-theme="light"] .theme-fab--dual .seg--light {
+#themeFab[data-active="light"] .seg--light {
   background: rgba(255,255,255,.92);
   color: #0b1220;
   box-shadow: 0 0 0 1px rgba(15,23,42,.10) inset;
-}
-
-/* ✅ 저장값 없을 때는 시스템 설정으로 하이라이트 */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) .theme-fab--dual .seg--dark {
-    background: rgba(15, 26, 46, .85);
-    color: #ffffff;
-    box-shadow: 0 0 0 1px rgba(255,255,255,.08) inset;
-  }
-}
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme]) .theme-fab--dual .seg--light {
-    background: rgba(255,255,255,.92);
-    color: #0b1220;
-    box-shadow: 0 0 0 1px rgba(15,23,42,.10) inset;
-  }
 }
 
 /* Mobile */
 @media (max-width: 560px) {
   .theme-fab { right: 12px; bottom: 12px; }
 }
+
