@@ -29,18 +29,31 @@
           "Liberation Mono", "Courier New", monospace;
 }
 
-/* ---------- Light Mode ---------- */
+/* ---------- Manual Theme Override (data-theme) ---------- */
+/* 시스템 설정 대신 사용자가 강제로 고정하는 경우 */
 @media (prefers-color-scheme: light) {
-  :root {
-    --bg: #f6f8fc;
-    --card: #ffffff;
-    --text: #0b1220;
-    --muted: #4a5568;
-    --border: rgba(15, 23, 42, .10);
-    --link: #2563eb;
-    --link-hover: #1d4ed8;
-    --shadow: 0 10px 30px rgba(15, 23, 42, .08);
-  }
+   :root[data-theme="dark"] {
+     --bg: #0b1220;
+     --card: #0f1a2e;
+     --text: #e7eefc;
+     --muted: #a9b6d3;
+     --border: rgba(255,255,255,.10);
+     --link: #8ab4ff;
+     --link-hover: #b7d0ff;
+     --shadow: 0 10px 30px rgba(0,0,0,.35);
+   }
+
+   :root[data-theme="light"] {
+     --bg: #f6f8fc;
+     --card: #ffffff;
+     --text: #0b1220;
+     --muted: #4a5568;
+     --border: rgba(15, 23, 42, .10);
+     --link: #2563eb;
+     --link-hover: #1d4ed8;
+     --shadow: 0 10px 30px rgba(15, 23, 42, .08);
+   }
+
 }
 
 /* ---------- Base Reset ---------- */
@@ -203,3 +216,60 @@ li { margin: 6px 0; }
   .card { padding: 18px; }
   h1 { font-size: 26px; }
 }
+
+/* ---------- Theme Floating Button ---------- */
+.theme-fab {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 9999;
+
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.08);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+
+  backdrop-filter: blur(10px);
+}
+
+.theme-fab:hover {
+  background: rgba(255,255,255,.12);
+}
+
+.theme-fab:active {
+  transform: translateY(1px);
+}
+
+.theme-fab:focus {
+  outline: 2px solid rgba(138,180,255,.35);
+  outline-offset: 3px;
+}
+
+/* 아이콘은 텍스트/이모지로 가볍게 */
+.theme-fab .icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* 버튼이 현재 어떤 모드인지 표시(아이콘만 바꿈) */
+.theme-fab[data-mode="dark"] .icon::before { content: "☀️"; }
+.theme-fab[data-mode="light"] .icon::before { content: "🌙"; }
+
+/* 모바일에서 가려지지 않게 조금 올림 */
+@media (max-width: 560px) {
+  .theme-fab {
+    right: 12px;
+    bottom: 12px;
+  }
+}
+
+
