@@ -217,32 +217,28 @@ li { margin: 6px 0; }
   h1 { font-size: 26px; }
 }
 
-/* ---------- Theme Floating Button ---------- */
+/* ---------- Theme Floating Button (Dual Icons) ---------- */
 .theme-fab {
   position: fixed;
   right: 16px;
   bottom: 16px;
   z-index: 9999;
 
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
   border: 1px solid var(--border);
-  background: rgba(255,255,255,.08);
+  background: rgba(255,255,255,.06);
   color: var(--text);
   box-shadow: var(--shadow);
   cursor: pointer;
 
   backdrop-filter: blur(10px);
+
+  /* reset */
+  padding: 0;
+  outline: none;
 }
 
 .theme-fab:hover {
-  background: rgba(255,255,255,.12);
+  background: rgba(255,255,255,.10);
 }
 
 .theme-fab:active {
@@ -254,22 +250,76 @@ li { margin: 6px 0; }
   outline-offset: 3px;
 }
 
-/* 아이콘은 텍스트/이모지로 가볍게 */
-.theme-fab .icon {
-  font-size: 18px;
-  line-height: 1;
+/* 듀얼 버튼 레이아웃 */
+.theme-fab--dual {
+  width: 92px;
+  height: 44px;
+  border-radius: 999px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 4px;
+  gap: 6px;
 }
 
-/* 버튼이 현재 어떤 모드인지 표시(아이콘만 바꿈) */
-.theme-fab[data-mode="dark"] .icon::before { content: "☀️"; }
-.theme-fab[data-mode="light"] .icon::before { content: "🌙"; }
+.theme-fab--dual .seg {
+  flex: 1;
+  height: 100%;
+  border-radius: 999px;
 
-/* 모바일에서 가려지지 않게 조금 올림 */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: transform .12s ease, background .12s ease, color .12s ease, box-shadow .12s ease;
+  user-select: none;
+}
+
+/* 기본(비선택) 상태는 중립 */
+.theme-fab--dual .seg {
+  background: transparent;
+  color: var(--muted);
+}
+
+.theme-fab--dual .seg-icon {
+  font-size: 16px;
+  line-height: 1;
+  filter: saturate(0.9);
+}
+
+/* ✅ 선택 상태 강조: 다크가 선택이면 오른쪽(🌙) 강조 */
+:root[data-theme="dark"] .theme-fab--dual .seg--dark,
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .theme-fab--dual .seg--dark {
+    background: rgba(15, 26, 46, .85); /* 어둡게 */
+    color: #ffffff;                    /* 아이콘/텍스트 밝게 */
+    box-shadow: 0 0 0 1px rgba(255,255,255,.08) inset;
+  }
+}
+
+/* ✅ 선택 상태 강조: 라이트가 선택이면 왼쪽(☀️) 강조 */
+:root[data-theme="light"] .theme-fab--dual .seg--light,
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) .theme-fab--dual .seg--light {
+    background: rgba(255, 255, 255, .92);  /* 밝게 */
+    color: #0b1220;                         /* 아이콘/텍스트 어둡게 */
+    box-shadow: 0 0 0 1px rgba(15,23,42,.10) inset;
+  }
+}
+
+/* 모바일에서 약간 줄이기 */
 @media (max-width: 560px) {
   .theme-fab {
     right: 12px;
     bottom: 12px;
   }
+  .theme-fab--dual {
+    width: 86px;
+    height: 42px;
+  }
+  .theme-fab--dual .seg-icon {
+    font-size: 15px;
+  }
 }
-
-
