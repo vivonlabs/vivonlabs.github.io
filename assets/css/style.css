@@ -314,25 +314,13 @@ li {
   }
 }
 
-.checkmed-heading {
-  margin: 0.6em 0 0.1em;
-  line-height: 1;
-  word-break: keep-all;
-}
-
 .app-title {
-  display: block;
   font-size: 32px;
-  font-weight: 800;
-  line-height: 1;
+  font-weight: bold;
 }
 
 .app-subtitle {
-  display: block;
-  margin-top: 1px;
-  padding-left: 8px;
-  font-size: 30px;
-  font-weight: 500;
-  line-height: 1;
-  color: var(--muted);
+  font-size: 26px;
+  font-weight: bold;
+  color: gray;
 }
