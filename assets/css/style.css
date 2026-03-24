@@ -72,6 +72,12 @@ body {
   /* ✅ 단색 고정: 분리감 원천 차단 */
 }
 
+/* 일본어 페이지: 가독성 있는 고딕 계열 우선 */
+html[lang="ja"] body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Sans",
+    "Hiragino Kaku Gothic ProN", "Yu Gothic UI", Meiryo, "Noto Sans JP", sans-serif;
+}
+
 body {
   margin: 0;
   background: var(--bg);
@@ -108,6 +114,55 @@ body::before {
       radial-gradient(1400px 700px at 20% -10%, rgba(37, 99, 235, .06), transparent 100%),
       radial-gradient(1100px 550px at 90% -10%, rgba(34, 197, 94, .03), transparent 100%);
   }
+}
+
+/* ---------- Language switcher ---------- */
+.lang-switch {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  margin: 0 0 18px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .04);
+  font-size: 14px;
+}
+
+.lang-switch::before {
+  content: "Language";
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-right: 4px;
+}
+
+html[lang="ko"] .lang-switch::before {
+  content: "언어";
+}
+
+html[lang="ja"] .lang-switch::before {
+  content: "言語";
+}
+
+.lang-switch a {
+  color: var(--link);
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.lang-switch a:hover {
+  background: rgba(255, 255, 255, .06);
+  text-decoration: none;
+}
+
+.lang-switch a.lang-switch__current {
+  color: var(--text);
+  font-weight: 600;
+  box-shadow: 0 0 0 1px var(--border) inset;
+  pointer-events: none;
 }
 
 /* ---------- Layout ---------- */
