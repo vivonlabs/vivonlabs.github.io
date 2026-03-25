@@ -121,7 +121,8 @@ body::before {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px 14px;
+  align-content: flex-start;
+  gap: 8px 12px;
   margin: 0 0 18px;
   padding: 10px 14px;
   border: 1px solid var(--border);
@@ -204,12 +205,19 @@ main.container > .lang-switch {
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0.15);
 }
 
+/* 1행: 라벨 전폭 → 2행에 언어 링크만 가로 배치(좁은 폭에서도 의도된 줄바꿈) */
 .lang-switch::before {
   content: "LANGUAGE";
-  color: var(--muted);
-  font-size: 12px;
-  letter-spacing: .06em;
-  margin-right: 4px;
+  flex: 1 0 100%;
+  width: 100%;
+  box-sizing: border-box;
+  margin-right: 0;
+  margin-bottom: 2px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.25;
 }
 
 .lang-switch a {
@@ -437,10 +445,15 @@ li {
 .app-title {
   font-size: 32px;
   font-weight: bold;
+  color: var(--text);
 }
 
 .app-subtitle {
-  font-size: 26px;
-  font-weight: bold;
-  color: rgb(231, 235, 255);
+  display: block;
+  margin-top: 0.2em;
+  font-size: clamp(1.05rem, 4.2vw, 26px);
+  font-weight: 700;
+  line-height: 1.3;
+  /* 라이트 모드에서 고정 밝은색이면 배경과 구분 불가 — 테마 텍스트 토큰으로 통일 */
+  color: var(--text);
 }
