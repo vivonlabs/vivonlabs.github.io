@@ -25,5 +25,9 @@
       a.addEventListener("click", () => VivonLocale.persistLocale(loc));
       nav.appendChild(a);
     });
+
+    // 루트 등에서 HTML hidden 대비(WebView·지연 로드 후에도 표시)
+    nav.hidden = false;
+    nav.removeAttribute("hidden");
   });
 })();

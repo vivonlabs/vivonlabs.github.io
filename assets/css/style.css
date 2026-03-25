@@ -135,6 +135,25 @@ main.container > .lang-switch {
   margin-bottom: 20px;
 }
 
+/* 루트 허브: 심플 한 줄 유지 + 모바일/WebView 터치 영역 */
+.lang-switch.lang-switch--root-hub {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0.12);
+}
+
+.lang-switch.lang-switch--root-hub a {
+  min-height: 44px;
+  min-width: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  font-size: 14px;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0.15);
+}
+
 /* 모바일 고정 URL(apps/CheckMED): 언어 변경 섹션 — 제목·안내·터치 영역 */
 .lang-change-section {
   position: relative;
@@ -186,20 +205,11 @@ main.container > .lang-switch {
 }
 
 .lang-switch::before {
-  content: "Language";
+  content: "LANGUAGE";
   color: var(--muted);
   font-size: 12px;
-  text-transform: uppercase;
   letter-spacing: .06em;
   margin-right: 4px;
-}
-
-html[lang="ko"] .lang-switch::before {
-  content: "언어";
-}
-
-html[lang="ja"] .lang-switch::before {
-  content: "言語";
 }
 
 .lang-switch a {
