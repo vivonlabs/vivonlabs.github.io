@@ -130,6 +130,61 @@ body::before {
   font-size: 14px;
 }
 
+/* 카드 밖(메인 최상단) 언어 스위치: 본문 카드와 간격 */
+main.container > .lang-switch {
+  margin-bottom: 20px;
+}
+
+/* 모바일 고정 URL(apps/CheckMED): 언어 변경 섹션 — 제목·안내·터치 영역 */
+.lang-change-section {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .04);
+  /* WebView·모바일 탭 지연 완화 및 하이라이트 */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0.12);
+}
+
+.lang-change-section__title {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.lang-change-section__hint {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+/* 섹션 제목이 있으면 스위치 앞줄 의사 라벨 중복 방지 */
+.lang-switch.lang-switch--no-label::before {
+  content: none;
+}
+
+.lang-change-section .lang-switch {
+  margin-bottom: 0;
+}
+
+.lang-change-section .lang-switch a {
+  min-height: 44px;
+  min-width: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  font-size: 15px;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0.15);
+}
+
 .lang-switch::before {
   content: "Language";
   color: var(--muted);

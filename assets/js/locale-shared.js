@@ -20,8 +20,13 @@
   }
 
   function fromStorage() {
-    const v = localStorage.getItem(STORAGE_KEY);
-    return SUPPORTED.includes(v) ? v : null;
+    try {
+      const v = localStorage.getItem(STORAGE_KEY);
+      return SUPPORTED.includes(v) ? v : null;
+    } catch (_) {
+      // WebView 사설 모드·저장소 비활성 등
+      return null;
+    }
   }
 
   function fromNavigator() {
@@ -40,7 +45,12 @@
   }
 
   function persistLocale(loc) {
-    if (SUPPORTED.includes(loc)) localStorage.setItem(STORAGE_KEY, loc);
+    if (!SUPPORTED.includes(loc)) return;
+    try {
+      localStorage.setItem(STORAGE_KEY, loc);
+    } catch (_) {
+      // WebView 등에서 localStorage 불가 시에도 링크 이동은 동작해야 함
+    }
   }
 
   /**
@@ -49,7 +59,21 @@
   function localeFromPath() {
     const p = pathnameNorm();
     const m = p.match(/\/(ko|en|ja)(?=\/|\/index\.html|$)/i);
-    return m ? m[1].toLowerCase() : null;
+    if (m) return m[1].toLowerCase();
+
+    // 로케일 접두 없는 /apps/... (모바일 고정 URL 등) → 영문 본문
+    if (/\/apps\//i.test(p)) return "en";
+
+    // 루트 허브(영문 기본 진입): / 또는 /index.html
+    if (!isFileProtocol()) {
+      const trimmed = p.replace(/\/$/, "") || "/";
+      if (trimmed === "/" || /^\/index\.html$/i.test(trimmed)) return "en";
+    } else {
+      // file://: 저장소 루트 index.html (ko/en/ja 폴더 밖)
+      if (!p.match(/\/(ko|en|ja)\//i) && /\/index\.html?$/i.test(p)) return "en";
+    }
+
+    return null;
   }
 
   /** 로컬 파일 기준 저장소 루트 pathname (끝에 /) */
