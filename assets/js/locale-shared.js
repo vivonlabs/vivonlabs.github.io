@@ -61,7 +61,7 @@
     const m = p.match(/\/(ko|en|ja)(?=\/|\/index\.html|$)/i);
     if (m) return m[1].toLowerCase();
 
-    // 로케일 접두 없는 /apps/... (모바일 고정 URL 등) → 영문 본문
+    // 로케일 접두 없이 /apps/... 만 있는 경로(예: 옛 루트 URL) → 영문으로 간주 (현재 사이트는 호스팅하지 않음)
     if (/\/apps\//i.test(p)) return "en";
 
     // 루트 허브(영문 기본 진입): / 또는 /index.html
@@ -90,9 +90,10 @@
       const root = hub[1];
       return root.endsWith("/") ? root : `${root}/`;
     }
-    const legacy = p.match(/^(.+)\/apps\/[^/]+$/i);
-    if (legacy) {
-      const root = legacy[1];
+    // file:// 에서 옛 루트 apps/<App>/ 경로를 연 경우(저장소에서 제거됨) 대비
+    const legacyApps = p.match(/^(.+)\/apps\/[^/]+$/i);
+    if (legacyApps) {
+      const root = legacyApps[1];
       return root.endsWith("/") ? root : `${root}/`;
     }
     return p.endsWith("/") ? p : `${p}/`;

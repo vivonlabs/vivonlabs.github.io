@@ -5,10 +5,11 @@ alwaysApply: true
 
 # App hub — new app pages
 
-When the user asks to add a new app by name (or official/privacy pages under `apps/`):
+When the user asks to add a new app by name (or official/privacy pages under `en|ko|ja/apps/<AppName>/`):
 
-1. Follow the full checklist in **`docs/ADD_APP_PLAYBOOK.md`** (naming, 8 files, 4 hub edits, forbidden root files).
+1. Follow the full checklist in **`docs/ADD_APP_PLAYBOOK.md`** (naming, 6 locale HTML files, 4 hub edits, forbidden root files). Do **not** add a repo-root `apps/` folder (no legacy redirects).
 2. Use **`en/apps/Houriva/`** (or `en/apps/CheckMED/`) as the HTML structure template: `canonical` / `hreflang`, `langSwitch` + `data-rel`, `../../../assets/`, theme FAB, three JS scripts.
 3. **Root hub** (repo root `index.html`): link targets **`en/apps/<AppName>/...`**. **Locale hubs** `en/index.html`, `ko/index.html`, `ja/index.html`: link targets **`apps/<AppName>/...`** (relative to that locale folder).
 4. **Do not** modify or delete: `app-ads.txt`, `CNAME`, `google39b438b48ece26d9.html`, `zzzindex.html` (see repo root `AGENTS.md`).
 5. Omit Play Store badges/icons until URLs and assets exist; use “coming soon” / 준비 중 style copy like Houriva stubs.
+6. **Hub app icon** (when adding `hub-store-link-wrap`): place PNG at **`assets/images/apps/<AppName>/icon.png`**; in root `index.html` use `assets/images/apps/<AppName>/icon.png`, in locale hubs use `../assets/images/apps/<AppName>/icon.png` for `hub-store-link__icon` `src`.

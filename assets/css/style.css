@@ -392,6 +392,17 @@ li {
   }
 }
 
+/* 앱 소개 페이지: 스토어 미오픈 시 배지만 표시(클릭 불가) */
+.hub-store-link--soon {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
+.hub-store-link--soon:hover {
+  background: rgba(255, 255, 255, .05);
+}
+
 /* ---------- Footer ---------- */
 .footer {
   margin-top: 26px;
