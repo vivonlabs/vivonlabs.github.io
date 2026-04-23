@@ -3,7 +3,7 @@
 * app-ads.txt
 * CNAME
 * google39b438b48ece26d9.html
-* zzzindex.html
+* zzz.html
 
 
 
